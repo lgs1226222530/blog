@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="nav">
+      <div class="nav__left">
+        <router-link to="/">Blog</router-link>
+      </div>
+      <div>
+        <router-link to="/">Home</router-link>
+      </div>
+      
     </div>
     <router-view/>
   </div>
 </template>
 
 <style lang="less">
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,9 +27,12 @@
   color: #2c3e50;
 }
 
-#nav {
+.nav {
+  display: flex;
   padding: 30px;
-
+  &__left{
+   a{}
+  }
   a {
     font-weight: bold;
     color: #2c3e50;
