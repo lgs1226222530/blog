@@ -20,11 +20,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import { Layout,Menu } from "ant-design-vue"
   export default {
-    components: { ALayout:Layout,AMenu:Menu }
+    components: {
+      [Layout.name]: Layout,
+      [Menu.name]: Menu
+    }
   };
 </script>
 
