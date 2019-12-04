@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <div class="nav">
-      <div class="nav__left">
-        <router-link to="/">Blog</router-link>
-      </div>
-      <div>
-        <router-link to="/">Home</router-link>
-      </div>
-      
+    <div class="layout">
+      <a-layout>
+      <a-layout-header>
+        <a-menu>
+          <a-menu-item>
+            <router-link to="/">Blog</router-link>  
+          </a-menu-item>
+          <a-menu-item>
+            <router-link to="/Login">Login</router-link>
+          </a-menu-item>
+        </a-menu>
+      </a-layout-header>
+      <a-layout-content>
+        <router-view/>
+      </a-layout-content>
+      <a-layout-footer>Footer</a-layout-footer>
+    </a-layout>
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+import { Layout,Menu } from "ant-design-vue"
+  export default {
+    components: { ALayout:Layout,AMenu:Menu }
+  };
+</script>
 
 <style lang="less">
 *{
@@ -27,19 +42,4 @@
   color: #2c3e50;
 }
 
-.nav {
-  display: flex;
-  padding: 30px;
-  &__left{
-   a{}
-  }
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
