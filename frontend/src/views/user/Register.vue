@@ -1,209 +1,144 @@
 <template>
-  <a-form :form="form" @submit="handleSubmit" class="register-form">
-    <a-form-item v-bind="formItemLayout">
-      <span slot="label">
-        昵称&nbsp;
-        <a-tooltip title="您希望您的朋友怎么称呼您呢?">
-          <a-icon type="question-circle-o" />
-        </a-tooltip>
-      </span>
+  <a-form
+    id="components-form-demo-normal-login"
+    :form="form"
+    class="login-form"
+    @submit="handleSubmit"
+  >
+    <a-form-item>
       <a-input
         v-decorator="[
-          '昵称',
-          {
-            rules: [{ required: true, message: '请输入您的昵称!', whitespace: true }],
+          'mail',
+          { 
+            rules: [
+            { type: 'email', message: '这不是一个正确的邮箱'},
+            { required: true, message: '请输入您的邮箱！' }
+          ] 
           },
         ]"
-      />
+        placeholder="邮箱"
+      >
+        <a-icon slot="prefix" type="mail" style="color: rgba(0,0,0,.25)" />
+      </a-input>
     </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="邮箱">
+    <a-form-item>
       <a-input
         v-decorator="[
-          '邮箱',
-          {
-            rules: [
-              {
-                type: 'email',
-                message: '请输入正确的邮箱！',
-              },
-              {
-                required: true,
-                message: '请输入您的邮箱！',
-              },
-            ],
-          },
+          'userName',
+          { rules: [{ required: true, message: '请输入您的昵称！' }] },
         ]"
-      />
+        placeholder="昵称"
+      >
+        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+      </a-input>
     </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="密码">
+    <a-form-item>
       <a-input
         v-decorator="[
-          '密码',
-          {
-            rules: [
-              {
-                required: true,
-                message: '请输入您的密码!',
-              },
-              {
-                validator: validateToNextPassword,
-              },
-            ],
+          'password',
+          { 
+            rules: 
+            [
+            { required: true, message: '请输入密码!' },
+            { validator: validateToNextPassword}
+            ] 
           },
         ]"
         type="password"
-      />
+        placeholder="密码"
+      >
+        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+      </a-input>
     </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="确认密码">
+    <a-form-item>
       <a-input
         v-decorator="[
-          '确认',
+          'confirm',
           {
-            rules: [
-              {
-                required: true,
-                message: '请重复您的密码！',
-              },
-              {
-                validator: compareToFirstPassword,
-              },
-            ],
+             rules: 
+            [
+             { required: true, message: '请再次确认密码!' },
+             { validator: compareToFirstPassword}
+            ] 
           },
         ]"
         type="password"
+        placeholder="确认密码"
         @blur="handleConfirmBlur"
-      />
+      >
+        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+      </a-input>
     </a-form-item>
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button type="primary" html-type="submit">
+    <a-form-item>
+      <a-button type="primary" html-type="submit" class="login-form-button">
         注册
       </a-button>
+      <router-link to="/user/Forgetpassword" class="login-form-forgot">
+      忘记密码?
+      </router-link>
+      <router-link to="/user/login">已有账号，马上登录!</router-link>
     </a-form-item>
   </a-form>
 </template>
 
 <script>
-import { Form, Input, Checkbox,Button,Tooltip,Icon } from 'ant-design-vue'
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
+import { Form, Input, Checkbox,Button } from 'ant-design-vue'
 
 export default {
-  components:{
-      [Icon.name]: Icon,
-      [Tooltip.name]: Tooltip,
-      [Form.name]: Form,
-      [Form.Item.name]: Form.Item,
-      [Input.name]: Input,
-      [Checkbox.name]: Checkbox,
-      [Button.name]:Button
+  name: 'Register',
+  components: {
+    [Form.name]: Form,
+    [Form.Item.name]: Form.Item,
+    [Input.name]: Input,
+    [Checkbox.name]: Checkbox,
+    [Button.name]:Button
+    },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
-  data() {
-    return {
-      confirmDirty: false,
-      residences,
-      autoCompleteResult: [],
-      formItemLayout: {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-      },
-      tailFormItemLayout: {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
-        },
-      },
-    };
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault();
+      // this.form.validateFields((err, values) => {
+      //   if (!err) {
+      //     console.log('Received values of form: ', values);
+      //   }
+      // });
+    },
+    handleConfirmBlur(e) {
+      const value = e.target.value;
+      this.confirmDirty = this.confirmDirty || !!value;
+    },
+    compareToFirstPassword(rule, value, callback) {
+      const form = this.form;
+      if (value && value !== form.getFieldValue('password')) {
+        callback('您输入的两个密码不一致!');
+      } else {
+        callback();
+      }
+    },
+    validateToNextPassword(rule, value, callback) {
+      const form = this.form;
+      if (value && this.confirmDirty) {
+        form.validateFields(['confirm'], { force: true });
+      }
+      callback();
+    },
   },
-//   beforeCreate() {
-//     this.form = this.$form.createForm(this, { name: 'register' });
-//   },
-//   methods: {
-//     handleSubmit(e) {
-//       e.preventDefault();
-//       this.form.validateFieldsAndScroll((err, values) => {
-//         if (!err) {
-//           console.log('Received values of form: ', values);
-//         }
-//       });
-//     },
-    // handleConfirmBlur(e) {
-    //   const value = e.target.value;
-    //   this.confirmDirty = this.confirmDirty || !!value;
-    // },
-    // compareToFirstPassword(rule, value, callback) {
-    //   const form = this.form;
-    //   if (value && value !== form.getFieldValue('password')) {
-    //     callback('两个密码不相同!');
-    //   } else {
-    //     callback();
-    //   }
-    // },
-    // validateToNextPassword(rule, value, callback) {
-    //   const form = this.form;
-    //   if (value && this.confirmDirty) {
-    //     form.validateFields(['confirm'], { force: true });
-    //   }
-    //   callback();
-    // },
-//     handleWebsiteChange(value) {
-//       let autoCompleteResult;
-//       if (!value) {
-//         autoCompleteResult = [];
-//       } else {
-//         autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-//       }
-//       this.autoCompleteResult = autoCompleteResult;
-//     },
-//   },
 };
 </script>
-<style lang="less">
-.register-form{
+<style>
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.login-form{
     margin: 0% auto;
-    width: 480px;
+    width: 360px;
 }
 </style>

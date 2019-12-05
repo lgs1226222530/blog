@@ -4,27 +4,22 @@
       <div class="logo" />
       <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline">
         <a-menu-item key="1">
-          <a-icon type="pie-chart" />
-          <span><router-link to="/">Blog</router-link></span>
+          <router-link to="/" style="color:#FFF">
+          <a-icon type="loading" />
+          <span>Blog</span>
+          </router-link>
         </a-menu-item>
         <a-menu-item key="2">
-          <a-icon type="desktop" />
-          <span><router-link to="/user/login">登录</router-link></span>
+          <router-link to="/user/login">
+          <a-icon type="user" />
+          <span>登录</span>
+          </router-link>
         </a-menu-item>
-        <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" /><span>User</span></span>
-          <a-menu-item key="3">Tom</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="team" /><span>Team</span></span>
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="8">Team 2</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="9">
-          <a-icon type="file" />
-          <span>File</span>
+        <a-menu-item key="3">
+          <router-link to="/">
+          <a-icon type="bell" />
+          <span>信息</span>
+          </router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
@@ -34,7 +29,6 @@
         <router-view/>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -50,7 +44,7 @@ import { Icon, Breadcrumb} from 'ant-design-vue'
     },
     data() {
       return {
-        collapsed: false,
+        collapsed: true,
       };
     },
   };

@@ -2,13 +2,13 @@
   <a-form
     id="components-form-demo-normal-login"
     :form="form"
-    class="login-form"
+    class="forget-form"
     @submit="handleSubmit"
   >
     <a-form-item>
       <a-input
         v-decorator="[
-          'mail',
+          'userName',
           { rules: [{ required: true, message: '请输入用户名!' }] },
         ]"
         placeholder="邮箱"
@@ -17,25 +17,13 @@
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-input
-        v-decorator="[
-          'password',
-          { rules: [{ required: true, message: '请输入密码!' }] },
-        ]"
-        type="password"
-        placeholder="密码"
-      >
-        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
-      </a-input>
-    </a-form-item>
-    <a-form-item>
       <a-button type="primary" html-type="submit" class="login-form-button">
-        登录
+        发送验证到邮箱
       </a-button>
-      <router-link to="/user/Forgetpassword" class="login-form-forgot">
-      忘记密码?
+      <router-link to="/user/register" >未有账号，马上注册!</router-link>
+      <router-link to="/user/login" class="login-form-forgot">
+      已有账号，马上登录!
       </router-link>
-      <router-link to="/user/register">未有账号，马上注册!</router-link>
     </a-form-item>
   </a-form>
 </template>
@@ -67,6 +55,7 @@ export default {
 };
 </script>
 <style>
+
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
 }
@@ -76,7 +65,7 @@ export default {
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
-.login-form{
+.forget-form{
     margin: 0% auto;
     width: 360px;
 }
